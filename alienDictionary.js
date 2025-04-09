@@ -50,4 +50,4 @@ const words1 = ['habito', 'hacer', 'lectura', 'sonreir'];
 const alphabetic2 = 'hlabcdefgijkmnopqrstuvwxyz';
 const words2 = ['habito', 'hacer', 'lectura', 'sonreir'];
 
-// console.log(calculateAlphabeticOrder(alphabetic1, words1));
+console.log(calculateAlphabeticOrder(alphabetic1, words1));
