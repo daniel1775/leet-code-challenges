@@ -1,53 +1,62 @@
 const calculateAlphabeticOrder = (alphabetic, words) => {
-    const indexMap = {};
+    if (words.length <= 1) return true;
+
+    let i = 0, j = 1, wordIndex = 0; 
+    const indexMap = {
+        null: -1
+    };
 
     // O(n)
     for (let i = 0; i < alphabetic.length; i++) {
         indexMap[alphabetic[i]] = i;
     }
 
-    // O(n)²
-    let limitWords = 0;
-    let alphaIndex = 0;
-    let acum = -1;
-    let isWordsEnd = false
-    let isOrdered = true;
+    // O(n²)
+    do {
+        if (j >= words.length) {
+            return true
+        }
 
-    while (!isWordsEnd) {
-
-        for (let i = 0; i < words.length; i++) {
-            if (words[i].length <= alphaIndex) {
-                limitWords++;
-                continue;
-            } 
-            console.log('words[i].charAt(alphaIndex): ', words[i].charAt(alphaIndex));
-            console.log('monda: ', indexMap[words[i].charAt(alphaIndex)]);
-            console.log('acum: ', acum);
-            console.log('--------------------------------------');
-            
-            if (indexMap[words[i].charAt(alphaIndex)] < acum) {
-                isOrdered = false;
-                isWordsEnd = true;
-                break;
+        if (indexMap[(words[i].charAt(wordIndex) || 'null')] > indexMap[(words[j].charAt(wordIndex) || 'null')]) {
+            return false;
+        } else if (indexMap[(words[i].charAt(wordIndex) || 'null')] === indexMap[(words[j].charAt(wordIndex) || 'null')]) {
+            while (true) {
+                wordIndex++;
+                if (indexMap[(words[i].charAt(wordIndex) || 'null')] < 0 && indexMap[(words[j].charAt(wordIndex) || 'null')] < 0) {
+                    break;
+                } else if (indexMap[(words[i].charAt(wordIndex) || 'null')] < indexMap[(words[j].charAt(wordIndex) || 'null')]) {
+                    break;
+                } else if (indexMap[(words[i].charAt(wordIndex) || 'null')] > indexMap[(words[j].charAt(wordIndex) || 'null')]) {
+                    return false;
+                } 
             }
-            acum = indexMap[words[i].charAt(alphaIndex)];
         }
-
-        if (limitWords === words.length || alphabetic.length <= alphaIndex) {
-            isWordsEnd = true;
-        }
-
-        acum = -1;
-        alphaIndex++;
-    }
-
-    return isOrdered;
+        i++, j++, wordIndex = 0;
+    } while (true);
 } 
 
+// true
 const alphabetic1 = 'hlabcdefgijkmnopqrstuvwxyz';
 const words1 = ['habito', 'hacer', 'lectura', 'sonreir'];
 
+// true
 const alphabetic2 = 'hlabcdefgijkmnopqrstuvwxyz';
-const words2 = ['habito', 'hacer', 'lectura', 'sonreir'];
+const words2 = ["hello", "leetcode"];
 
-// console.log(calculateAlphabeticOrder(alphabetic1, words1));
+// false
+const alphabetic3 = 'worldabcefghijkmnpqstuvxyz';
+const words3 = ["word", "world", "row"];
+
+// false
+const alphabetic4 = 'abcdefghijklmnopqrstuvwxyz';
+const words4 = ["apple", "app"];
+
+// true
+const alphabetic5 = 'abcdefghijklmnopqrstuvwxyz';
+const words5 = ["app", "apple"];
+
+// true
+const alphabetic6 = "zyxwvutsrqponmlkjihgfedcba";
+const words6 = ["cba", "cab", "abc"];
+
+console.log(calculateAlphabeticOrder(alphabetic6, words6));
