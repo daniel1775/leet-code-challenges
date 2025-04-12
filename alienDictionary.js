@@ -59,4 +59,12 @@ const words5 = ["app", "apple"];
 const alphabetic6 = "zyxwvutsrqponmlkjihgfedcba";
 const words6 = ["cba", "cab", "abc"];
 
-console.log(calculateAlphabeticOrder(alphabetic6, words6));
+// false
+const alphabetic7 = 'abcdefghijklmnopqrstuvwxyz';
+const words7 = ["conocer", "cono"];
+
+// false
+const alphabetic8 = "hlabcdfgijkmnopqrstuvwxyz";
+const words8 = ["habito", "hacer", "sonreir", "lectura"];
+
+console.log(calculateAlphabeticOrder(alphabetic8, words8));
